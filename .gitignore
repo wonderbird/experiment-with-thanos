@@ -1,4 +1,17 @@
+#####
+# Temporary files created by terraform scripts
+#
+
+azure/thanosblob.zip
+
+# End of temporary files created by terraform scripts
+#####
+
+#####
+# Terraform exclusion rules
+#
 # Adopted from https://github.com/github/gitignore/blob/master/Terraform.gitignore
+
 # Local .terraform directories
 **/.terraform/*
 
@@ -29,3 +42,5 @@ override.tf.json
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
 
+# End of terraform exclusion rules
+#####
