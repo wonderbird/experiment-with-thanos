@@ -42,12 +42,20 @@ terraform plan
 # ... if you like the changes, then apply them
 terraform apply
 
-# ... check the results on the amazon aws console:
-# https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=instanceId
+# ... check the results on the azure portal:
+# https://portal.azure.com/#home
 # ... and using terraform
 terraform show
-
 ```
+
+Next you need to update the storage account key in thanos-storage-config.yml. Two steps are required:
+
+```sh
+# Get the storage account key from azure cli
+az storage account keys list -g thanosrg -n thanossa
+```
+
+Then navigate to the `thanos-storage-config.yml` file on azure portal: From the [storage accounts blade](https://portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.Storage%2FStorageAccounts) go to `thanossa` &rarr; `Containers` &rarr; `thanosc` &rarr; `thanos-storage-config.yml` &rarr; `Edit`. Paste the storage account `key1`.
 
 ## Unprovisioning (Deleting) the System
 

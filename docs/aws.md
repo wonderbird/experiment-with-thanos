@@ -40,7 +40,6 @@ terraform apply
 # https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:sort=instanceId
 # ... and using terraform
 terraform show
-
 ```
 
 ## Unprovisioning (Deleting) the System

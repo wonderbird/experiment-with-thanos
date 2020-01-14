@@ -1,15 +1,9 @@
-data "archive_file" "thanos-storage-config" {
-  type        = "zip"
-  source_dir  = "thanosblob"
-  output_path = "thanosblob.zip"
-}
-
 provider "azurerm" {
     version = "~>1.38.0"
 }
 
 resource "azurerm_resource_group" "thanosresources" {
-    name     = "thanosrg"
+    name     = "az storage account keys list -g"
     location = "westeurope"
 }
 
@@ -30,10 +24,10 @@ resource "azurerm_storage_container" "thanoscontainer" {
 }
 
 resource "azurerm_storage_blob" "thanosblob" {
-  name                   = "thanosblob.zip"
+  name                   = "thanos-storage-config.yml"
   resource_group_name    = "${azurerm_resource_group.thanosresources.name}"
   storage_account_name   = "${azurerm_storage_account.thanosstorage.name}"
   storage_container_name = "${azurerm_storage_container.thanoscontainer.name}"
   type                   = "Block"
-  source                 = "thanosblob.zip"
+  source                 = "thanosblob/thanos-storage-config.yml"
 }
