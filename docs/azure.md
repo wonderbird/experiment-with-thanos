@@ -11,10 +11,10 @@ In order for the setup to work you need to provide valid credentials to the cont
 ```sh
 # Use the following two commands to store AWS secrets in environment variables
 # without showing them to others watching your screen
-echo -n "Azure client id: " && read -s ARM_CLIENT_ID
-echo -n "Azure subscription id: " && read -s ARM_SUBSCRIPTION_ID
-echo -n "Azure tenant id: " && read -s ARM_TENANT_ID
-echo -n "Azure client secret: " && read -s ARM_CLIENT_SECRET
+echo -n "Azure client id: " && read -s ARM_CLIENT_ID && echo
+echo -n "Azure subscription id: " && read -s ARM_SUBSCRIPTION_ID && echo
+echo -n "Azure tenant id: " && read -s ARM_TENANT_ID && echo
+echo -n "Azure client secret: " && read -s ARM_CLIENT_SECRET && echo
 
 export ARM_CLIENT_ID
 export ARM_SUBSCRIPTION_ID
@@ -28,7 +28,7 @@ docker run -it \
            -e "ARM_TENANT_ID=$ARM_TENANT_ID" \
            -e "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" \
            -v /Users/stefan/src/experiment-with-thanos/azure:/root/work \
-           --entrypoint /bin/bash terraform-aws-cli
+           --entrypoint /bin/bash terraform-aws-azure-cli
 
 # Inside the container
 cd /root/work

@@ -16,10 +16,10 @@ This repository assumes that you have [docker](https://www.docker.com/) installe
 
 ## Getting Started
 
-Build the docker image `transform-aws-cli`:
+To get a docker image containing terraform, the aws cli and the azure cli, build the docker image `transform-aws-azure-cli`:
 
 ```sh
-docker build -t terraform-aws-cli terraform-aws-cli
+docker build -t terraform-aws-azure-cli terraform-aws-azure-cli
 ```
 
 Then perform the steps in the following subsections:
