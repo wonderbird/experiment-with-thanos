@@ -1,10 +1,10 @@
 #####
-# Temporary files created by terraform scripts
+# Local files may contain secrets - don't check them in
 #
 
-azure/thanosblob.zip
+*local*
 
-# End of temporary files created by terraform scripts
+# End of local files
 #####
 
 #####

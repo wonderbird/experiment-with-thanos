@@ -12,14 +12,14 @@ In order for the setup to work you need to provide valid credentials to the cont
 # Use the following two commands to store AWS secrets in environment variables
 # without showing them to others watching your screen
 echo -n "Azure client id: " && read -s ARM_CLIENT_ID && echo
-echo -n "Azure subscription id: " && read -s ARM_SUBSCRIPTION_ID && echo
 echo -n "Azure tenant id: " && read -s ARM_TENANT_ID && echo
 echo -n "Azure client secret: " && read -s ARM_CLIENT_SECRET && echo
+echo -n "Azure subscription id: " && read -s ARM_SUBSCRIPTION_ID && echo
 
 export ARM_CLIENT_ID
+export ARM_CLIENT_SECRET
 export ARM_SUBSCRIPTION_ID
 export ARM_TENANT_ID
-export ARM_CLIENT_SECRET
 
 # Run the container
 docker run -it \
@@ -47,15 +47,6 @@ terraform apply
 # ... and using terraform
 terraform show
 ```
-
-Next you need to update the storage account key in thanos-storage-config.yml. Two steps are required:
-
-```sh
-# Get the storage account key from azure cli
-az storage account keys list -g thanosrg -n thanossa
-```
-
-Then navigate to the `thanos-storage-config.yml` file on azure portal: From the [storage accounts blade](https://portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.Storage%2FStorageAccounts) go to `thanossa` &rarr; `Containers` &rarr; `thanosc` &rarr; `thanos-storage-config.yml` &rarr; `Edit`. Paste the storage account `key1`.
 
 ## Unprovisioning (Deleting) the System
 

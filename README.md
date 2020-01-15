@@ -30,3 +30,5 @@ Then perform the steps in the following subsections:
 ## References
 
 * Idan Levin: [Monitoring Kubernetes workloads with Prometheus and Thanos](https://itnext.io/monitoring-kubernetes-workloads-with-prometheus-and-thanos-4ddb394b32c), ITNEXT, last visited on Jan. 11, 2020.
+
+* Gruntwork.io: [DRY and maintainable Terraform code](https://terragrunt.gruntwork.io/), last visited on Jan. 15, 2020.
