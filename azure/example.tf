@@ -16,8 +16,13 @@ resource "azurerm_storage_account" "thanosstorage" {
   enable_file_encryption   = "true"
 
   provisioner "local-exec" {
-    command = "create_thanos_storage_config.sh ${azurerm_resource_group.thanosresources.name} ${azurerm_storage_account.thanosstorage.name} local-thanos-storage-config.yml"
+    command = "create_thanos_storage_config.sh"
     interpreter = ["bash"]
+    environment = {
+      RESOURCE_GROUP = "${azurerm_resource_group.thanosresources.name}"
+      STORAGE_ACCOUNT = "${azurerm_storage_account.thanosstorage.name}"
+      TARGET_FILE = "local-thanos-storage-config.yml"
+    }
   }
 }
 

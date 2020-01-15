@@ -10,6 +10,12 @@ The software in this project is highly experimental. Its only purpose is for me 
 
 The repository has just been created. Nothing is working properly yet. Please come back later. The documentation below is work in progress.
 
+## Open Issues / Code Smells
+
+* The terraform script(s) for setting up azure include(s) a "local-exec" provisioner. This is not recommended by the terraform guides.
+* The azure storage account key is stored in the azure blob in an unencrypted way.
+* The field "resource_group_name" is deprecated in the azure terraform provider.
+
 ## Prerequisites
 
 This repository assumes that you have [docker](https://www.docker.com/) installed. The folder terraform-aws-cli provides a container bundling terraform and the aws cli to execute the terraform infrastructure as code.
