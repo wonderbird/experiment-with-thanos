@@ -22,7 +22,7 @@ export ARM_SUBSCRIPTION_ID
 export ARM_TENANT_ID
 
 # Run the container
-docker run -it \
+docker run -p 8001:8001 -it \
            -e "ARM_CLIENT_ID=$ARM_CLIENT_ID" \
            -e "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" \
            -e "ARM_TENANT_ID=$ARM_TENANT_ID" \
@@ -40,13 +40,34 @@ terraform init
 terraform plan
 
 # ... if you like the changes, then apply them
-terraform apply
+terraform apply -var client_id="$ARM_CLIENT_ID" -var client_secret="$ARM_CLIENT_SECRET"
 
 # ... check the results on the azure portal:
 # https://portal.azure.com/#home
 # ... and using terraform
 terraform show
 ```
+
+A kubernetes cluster is created by terraform apply. To inspect the cluster perform these steps in the terraform-aws-azure-cli docker container:
+
+```sh
+# If you are connecting to a running terraform environment without having called
+# terraform apply before, you have to log into azure
+az login --service-principal --tenant $ARM_TENANT_ID -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET
+
+# Get credentials for kubernetes
+az aks get-credentials --resource-group thanosrg --name thanosk8s
+
+# If the dashboard is not installed in your kubernetes cluster yet (i.e. if you
+# are trying to connect to the dashboard for the first time after having applied
+# the terraform configuration), install the dashboard into the cluster
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+
+# Forward the dashboard to http://localhost:8001
+kubectl proxy
+```
+
+Then you can view the dashboard in your browser at http://localhost:8001/
 
 ## Unprovisioning (Deleting) the System
 
