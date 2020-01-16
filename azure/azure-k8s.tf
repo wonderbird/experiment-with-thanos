@@ -10,13 +10,15 @@ resource "azurerm_kubernetes_cluster" "thanoskubernetes" {
     vm_size    = "Standard_D2_v2"
   }
 
+  addon_profile {
+      kube_dashboard {
+          enabled = true
+      }
+  }
+
   service_principal {
     client_id     = "${var.client_id}"
     client_secret = "${var.client_secret}"
-  }
-
-  tags = {
-    Environment = "Production"
   }
 }
 

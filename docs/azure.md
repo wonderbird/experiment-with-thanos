@@ -48,20 +48,15 @@ terraform apply -var client_id="$ARM_CLIENT_ID" -var client_secret="$ARM_CLIENT_
 terraform show
 ```
 
-A kubernetes cluster is created by terraform apply. To inspect the cluster perform these steps in the terraform-aws-azure-cli docker container:
+A kubernetes cluster is created by terraform apply. The [kubernetes web ui (dashboard)](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) is installed and can be connected by
 
 ```sh
 # If you are connecting to a running terraform environment without having called
 # terraform apply before, you have to log into azure
 az login --service-principal --tenant $ARM_TENANT_ID -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET
 
-# Get credentials for kubernetes
+# Get credentials for kubernetes, if you have not run k8s commands before in this container
 az aks get-credentials --resource-group thanosrg --name thanosk8s
-
-# If the dashboard is not installed in your kubernetes cluster yet (i.e. if you
-# are trying to connect to the dashboard for the first time after having applied
-# the terraform configuration), install the dashboard into the cluster
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
 
 # Forward the dashboard to http://localhost:8001
 kubectl proxy
@@ -81,3 +76,5 @@ terraform destroy
 * HashiCorp: [Learn about provisioning infrastructure with HashiCorp Terraform](https://learn.hashicorp.com/terraform), last visited on Jan. 12, 2020.
 
 * Microsoft: [Azure Portal](https://portal.azure.com/?quickstart=true#blade/Microsoft_Azure_Resources/QuickstartCenterBlade), last visited on Jan. 12, 2020.
+
+* Kubernetes: [Web UI (Dashboard)](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/), last visited on Jan. 16, 2020.
