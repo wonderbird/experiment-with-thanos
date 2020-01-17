@@ -22,13 +22,13 @@ export ARM_SUBSCRIPTION_ID
 export ARM_TENANT_ID
 
 # Run the container
-docker run -it \
+docker run --rm --name thanos-build-env -it \
            -e "ARM_CLIENT_ID=$ARM_CLIENT_ID" \
            -e "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" \
            -e "ARM_TENANT_ID=$ARM_TENANT_ID" \
            -e "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" \
            -v /Users/stefan/src/experiment-with-thanos/azure:/root/work \
-           --entrypoint /bin/bash terraform-aws-azure-cli
+           --entrypoint /bin/bash thanos-build-env
 
 # Inside the container
 cd /root/work

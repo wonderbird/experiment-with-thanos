@@ -22,7 +22,7 @@ docker run -it \
            -e "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" \
            -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
            -v /Users/stefan/src/experiment-with-thanos/aws:/root/work \
-           --entrypoint /bin/bash terraform-aws-azure-cli
+           --entrypoint /bin/bash thanos-build-env
 
 # Inside the container
 cd /root/work

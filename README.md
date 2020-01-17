@@ -22,10 +22,10 @@ This repository assumes that you have [docker](https://www.docker.com/) installe
 
 ## Getting Started
 
-To get a docker image containing terraform, the aws cli and the azure cli, build the docker image `transform-aws-azure-cli`:
+To get a docker image containing terraform, the aws cli and the azure cli, build the docker image `thanos-build-env`:
 
 ```sh
-docker build -t terraform-aws-azure-cli terraform-aws-azure-cli
+docker build -t thanos-build-env thanos-build-env
 ```
 
 Then perform the steps in the following subsections:

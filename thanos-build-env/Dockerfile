@@ -67,6 +67,16 @@ RUN rm -rf /azure-cli && \
 
 #### End of azure-cli installation specifics
 
+#### Install helm
+# https://helm.sh/docs/intro/install/
+RUN echo "**** install azure cli ****" \
+    && curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 \
+    && chmod 700 get_helm.sh \
+    && ./get_helm.sh \
+    && rm ./get_helm.sh \
+    && helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+#### End of helm installation
+
 # docker-entrypoint.sh will add the aws cli into the path
 # and run terraform
 COPY docker-entrypoint.sh /usr/local/bin
