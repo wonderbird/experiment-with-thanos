@@ -12,9 +12,9 @@ In order for the setup to work you need to provide valid credentials to the cont
 # Use the following two commands to store AWS secrets in environment variables
 # without showing them to others watching your screen
 echo -n "Azure client id: " && read -s ARM_CLIENT_ID && echo
-echo -n "Azure tenant id: " && read -s ARM_TENANT_ID && echo
 echo -n "Azure client secret: " && read -s ARM_CLIENT_SECRET && echo
 echo -n "Azure subscription id: " && read -s ARM_SUBSCRIPTION_ID && echo
+echo -n "Azure tenant id: " && read -s ARM_TENANT_ID && echo
 
 export ARM_CLIENT_ID
 export ARM_CLIENT_SECRET
@@ -22,7 +22,7 @@ export ARM_SUBSCRIPTION_ID
 export ARM_TENANT_ID
 
 # Run the container
-docker run -p 8001:8001 -it \
+docker run -it \
            -e "ARM_CLIENT_ID=$ARM_CLIENT_ID" \
            -e "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" \
            -e "ARM_TENANT_ID=$ARM_TENANT_ID" \
@@ -37,10 +37,10 @@ cd /root/work
 terraform init
 
 # ... check the planned changes
-terraform plan
+terraform plan -var client_id="$ARM_CLIENT_ID" -var client_secret="$ARM_CLIENT_SECRET" --out localplan
 
 # ... if you like the changes, then apply them
-terraform apply -var client_id="$ARM_CLIENT_ID" -var client_secret="$ARM_CLIENT_SECRET"
+terraform apply localplan
 
 # ... check the results on the azure portal:
 # https://portal.azure.com/#home
@@ -48,18 +48,26 @@ terraform apply -var client_id="$ARM_CLIENT_ID" -var client_secret="$ARM_CLIENT_
 terraform show
 ```
 
-A kubernetes cluster is created by terraform apply. The [kubernetes web ui (dashboard)](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) is installed and can be connected by
+A kubernetes cluster is created by terraform apply. The [kubernetes web ui (dashboard)](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) is enabled. To connect, you need to have the azure cli and
+kubectl on your local machine. I have not found out how to run it from a docker
+container yet.
+
+To install the azure cli locally, follow the steps described in the [Install Azure CLI](https://docs.microsoft.com/de-de/cli/azure/install-azure-cli?view=azure-cli-latest) manual. Then install the kubernetes commands:
 
 ```sh
-# If you are connecting to a running terraform environment without having called
-# terraform apply before, you have to log into azure
-az login --service-principal --tenant $ARM_TENANT_ID -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET
+az aks install-cli
+```
 
-# Get credentials for kubernetes, if you have not run k8s commands before in this container
+Finally you can run the kubernetes proxy as follows:
+
+```sh
+az login
+
+# Get the credentials for your cluster
 az aks get-credentials --resource-group thanosrg --name thanosk8s
 
 # Forward the dashboard to http://localhost:8001
-kubectl proxy
+az aks browse --resource-group thanosrg --name thanosk8s
 ```
 
 Then you can view the dashboard in your browser at http://localhost:8001/
@@ -76,5 +84,7 @@ terraform destroy
 * HashiCorp: [Learn about provisioning infrastructure with HashiCorp Terraform](https://learn.hashicorp.com/terraform), last visited on Jan. 12, 2020.
 
 * Microsoft: [Azure Portal](https://portal.azure.com/?quickstart=true#blade/Microsoft_Azure_Resources/QuickstartCenterBlade), last visited on Jan. 12, 2020.
+
+* Microsoft: [Install Azure CLI](https://docs.microsoft.com/de-de/cli/azure/install-azure-cli?view=azure-cli-latest), last visited on Jan. 16, 2020.
 
 * Kubernetes: [Web UI (Dashboard)](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/), last visited on Jan. 16, 2020.

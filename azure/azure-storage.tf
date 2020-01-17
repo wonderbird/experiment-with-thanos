@@ -12,23 +12,14 @@ resource "azurerm_storage_account" "thanosstorage" {
     environment = {
       RESOURCE_GROUP = "${azurerm_resource_group.thanosresources.name}"
       STORAGE_ACCOUNT = "${azurerm_storage_account.thanosstorage.name}"
-      TARGET_FILE = "local-thanos-storage-config.yml"
+      TARGET_FILE = "local-thanos-storage-config.yaml"
     }
   }
 }
 
 resource "azurerm_storage_container" "thanoscontainer" {
-  name                  = "thanosc"
+  name                  = "thanos"
   resource_group_name   = "${azurerm_resource_group.thanosresources.name}"
   storage_account_name  = "${azurerm_storage_account.thanosstorage.name}"
   container_access_type = "private"
-}
-
-resource "azurerm_storage_blob" "thanosblob" {
-  name                   = "thanos-storage-config.yml"
-  resource_group_name    = "${azurerm_resource_group.thanosresources.name}"
-  storage_account_name   = "${azurerm_storage_account.thanosstorage.name}"
-  storage_container_name = "${azurerm_storage_container.thanoscontainer.name}"
-  type                   = "Block"
-  source                 = "local-thanos-storage-config.yml"
 }

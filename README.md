@@ -13,7 +13,7 @@ The repository has just been created. Nothing is working properly yet. Please co
 ## Open Issues / Code Smells
 
 * The terraform script(s) for setting up azure include(s) a "local-exec" provisioner. This is not recommended by the terraform guides.
-* The azure storage account key is stored in the azure blob in an unencrypted way.
+* The azure storage account key is stored on the local disk in file `local-thanos-storage-config.yaml`.
 * The field "resource_group_name" is deprecated in the azure terraform provider.
 
 ## Prerequisites

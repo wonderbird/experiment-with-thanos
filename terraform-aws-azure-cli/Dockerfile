@@ -67,13 +67,6 @@ RUN rm -rf /azure-cli && \
 
 #### End of azure-cli installation specifics
 
-#### Install azure k8s cli (kubectl command)
-RUN az aks install-cli
-
-# expose the kubernetes proxy port (dashboard)
-EXPOSE 8001
-#### End of azure k8s cli installation
-
 # docker-entrypoint.sh will add the aws cli into the path
 # and run terraform
 COPY docker-entrypoint.sh /usr/local/bin
