@@ -8,7 +8,14 @@ The software in this project is highly experimental. Its only purpose is for me 
 
 ## Status
 
-The repository has just been created. Nothing is working properly yet. Please come back later. The documentation below is work in progress.
+In this repository I have
+- a Dockerfile to create a container with aws cli, azure cli, terraform and helm installed.
+- an example terraform configuration to create a EC2 container in AWS (directory `aws`)
+- an example terraform configuration provisioning an Azure Kubernetes Cluster (directory `azure`)
+
+Unfortuntely I am hanging at the point where I `helm install` the prometheus-operator (see [Monitoring Kubernetes workloads with Prometheus and Thanos](https://itnext.io/monitoring-kubernetes-workloads-with-prometheus-and-thanos-4ddb394b32c)). The next steps are described in the subsection "next steps" of [docs/azure.md](docs/azure.md).
+
+I have put this repo aside for now.
 
 ## Open Issues / Code Smells
 
