@@ -72,6 +72,10 @@ az aks browse --resource-group thanosrg --name thanosk8s
 
 Then you can view the dashboard in your browser at http://localhost:8001/
 
+## Next step
+
+helm install --namespace monitoring prometheus-operator stable/prometheus-operator -f prometheus-operator-values.yaml
+
 ## Unprovisioning (Deleting) the System
 
 ```sh
