@@ -74,8 +74,17 @@ Then you can view the dashboard in your browser at http://localhost:8001/
 
 ## Next step
 
-helm install --namespace monitoring prometheus-operator stable/prometheus-operator -f prometheus-operator-values.yaml
+```sh
+export RESOURCE_GROUP=thanosrg
+export STORAGE_ACCOUNT=thanossa
+export TARGET_FILE=local-thanos-storage-config.yaml
+bash create_thanos_storage_config.sh
 
+az aks get-credentials --resource-group thanosrg --name thanosk8s
+kubectl -n monitoring create secret generic thanos-objstore-config --from-file=thanos.yaml=local-thanos-storage-config.yaml
+
+helm install --namespace monitoring prometheus-operator stable/prometheus-operator -f prometheus-operator-values.yaml
+```
 ## Unprovisioning (Deleting) the System
 
 ```sh

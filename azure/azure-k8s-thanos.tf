@@ -17,13 +17,13 @@ resource "kubernetes_namespace" "monitoringns" {
   }
 }
 
-resource "kubernetes_secret" "thanosobjectstoreconfig" {
-  metadata {
-    name = "thanos-objstore-config"
-    namespace = "monitoring"
-  }
-
-  data = {
-    "thanos.yaml" = "${file("local-thanos-storage-config.yaml")}"
-  }
-}
+#resource "kubernetes_secret" "thanosobjectstoreconfig" {
+#  metadata {
+#    name = "thanos-objstore-config"
+#    namespace = "monitoring"
+#  }
+#
+#  data = {
+#    "thanos.yaml" = "${file("local-thanos-storage-config.yaml")}"
+#  }
+#}

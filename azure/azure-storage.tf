@@ -6,15 +6,15 @@ resource "azurerm_storage_account" "thanosstorage" {
   account_replication_type = "LRS"
   enable_file_encryption   = "true"
 
-  provisioner "local-exec" {
-    command = "create_thanos_storage_config.sh"
-    interpreter = ["bash"]
-    environment = {
-      RESOURCE_GROUP = "${azurerm_resource_group.thanosresources.name}"
-      STORAGE_ACCOUNT = "${azurerm_storage_account.thanosstorage.name}"
-      TARGET_FILE = "local-thanos-storage-config.yaml"
-    }
-  }
+#  provisioner "local-exec" {
+#    command = "create_thanos_storage_config.sh"
+#    interpreter = ["bash"]
+#    environment = {
+#      RESOURCE_GROUP = "${azurerm_resource_group.thanosresources.name}"
+#      STORAGE_ACCOUNT = "${azurerm_storage_account.thanosstorage.name}"
+#      TARGET_FILE = "local-thanos-storage-config.yaml"
+#    }
+#  }
 }
 
 resource "azurerm_storage_container" "thanoscontainer" {
